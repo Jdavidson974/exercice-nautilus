@@ -1,0 +1,31 @@
+<div class="d-flex align-items-center flex-wrap align-middle" id="login">
+    <div class="my-3 border border h-300 w-300 d-flex m-auto flex-column">
+        <div class="d-flex justify-content-center p-2">
+            <h2>Se connecter</h2>
+        </div>
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="w-100 d-flex flex-wrap">
+            
+            <div class="w-100 d-flex flex-wrap p-2 justify-content-center">  
+                <div class="w-100" [hidden]="login.valid ||login.pristine" >
+                    <p class="text-danger text-center">Veuillez renseigner un username </p>
+                </div>  
+                <label class="w-25" for="user">Username:</label>
+                <input name="login" #login="ngModel" ngModel class="w-50"type="text" appBorderInput required pattern="^[a-zA-Zàéèç]{1,25}$">
+            </div>
+            
+            <div class="w-100 d-flex flex-wrap p-2 justify-content-center"> 
+                <div class="w-100" [hidden]="password.valid ||password.pristine" >
+                    <p class="text-danger text-center">Veuillez renseigner un password </p>
+                </div> 
+                <label class="w-25" for="user">Password:</label>
+                <input name="password" #password="ngModel"  ngModel class="w-50"type="text" appBorderInput required pattern="^[a-zA-Zàéèç]{1,25}$">
+            </div>
+            
+            <div class="w-100 d-flex justify-content-end p-2">  
+                <input type="submit" class="btn btn-info float-right" value="Connexion">
+            </div>
+            
+        </form>
+    </div>
+    
+</div>

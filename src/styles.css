@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+#login{
+    position: relative;
+    top: 35%;
+    transform: translateY(-50%);
+}
+
+a:hover{
+    cursor: pointer !important;
+}

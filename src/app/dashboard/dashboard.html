@@ -1,0 +1,120 @@
+<div class="d-flex flex-column ">
+    <div class="w-100 d-flex justify-content-center">
+        <h1 class="text-center">Bienvenue sur votre dashboard </h1>
+    </div>
+    <div class="my-3">
+        <button data-toggle="modal" data-target="#modal-ajout" class="btn btn-success">Ajouter un ticket</button>
+    </div>
+    <div class="w-100 d-flex justify-content-center">
+      <div *ngIf="ticketList.length ==0" class="d-flex">
+          <div>
+            <span>Connexion en cours..</span> 
+            <div class="spinner-border" role="status"></div>
+          </div>
+      </div>
+      <table *ngIf="ticketList.length>0;" class="table">
+        
+          
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col"></th>
+              <th #test scope="col">Imatriculation</th>
+              <th scope="col">Date de création</th>
+              <th scope="col" class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ticket of ticketList">
+              <th scope="row">{{ticket.id}}</th>
+              <td>{{ticket.Imatriculation}}</td>
+              <td>{{ticket.created_at | date : 'dd/MM/yyyy'}}</td>
+              <td>
+                <i data-toggle="modal" data-id="{{ticket.id}}"   appDataId data-choix="delete" class="fa-solid fa-trash w-50 text-center text-danger link"></i>
+                <i data-toggle="modal" data-target="#modal-edit" appDataId data-choix="edit" data-id="{{ticket.id}}" class="fa-solid fa-pencil w-50 text-center text-info link"></i>
+              </td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+</div>
+<!-- Modal delete-->
+<div class="modal fade" id="modal-delete" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Suppression</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Êtes vous sûr de vouloir supprimer ce ticket?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+          <button type="button" class="btn btn-primary">Oui!</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal edit-->
+<div class="modal fade" id="modal-edit" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Modification</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex w-100 mb-2">
+            <label class="mr-3 p-2 w-50 text-right" for="actuel">Imatriculation actuel:</label>
+            <input class="p-2 w-50" type="text" disabled value="XXX" id="actuel">
+          </div>
+          <div class="d-flex w-100">
+            <label class="mr-3 p-2 w-50 text-right" for="modification">Modification:</label>
+            <input class="p-2 w-50" type="text" id="modification">
+          </div>
+          
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-primary">Valider</button>
+        </div>
+      </div>  
+    </div>
+</div>
+
+<!-- Modal ajout-->
+<div class="modal fade" id="modal-ajout" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Ajout</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex w-100 justify-content-center">
+          <form #addTicketForm="ngForm" (ngSubmit)="onSubmit(addTicketForm)">
+            <div class="w-100" [hidden]="imatriculation.valid ||imatriculation.pristine" >
+              <p class="text-danger text-center">Veuillez renseigner une imatriculation valide (1-6) </p>
+            </div> 
+            <label class="mr-3 p-2" for="modification">Imatriculation:</label>
+            <input class="p-2" name="Imatriculation" #imatriculation="ngModel" ngModel required maxlength="6" type="text" id="modification">
+            <div class="d-flex justify-content-end p-3">
+              <button type="button" class="btn btn-secondary mx-2" data-dismiss="modal">Fermer</button>
+              <button type="submit" class="btn btn-primary">Valider</button>
+            </div> 
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>  
+  </div>
+</div>
